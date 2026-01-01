@@ -1,0 +1,50 @@
+-- 1. Foreign key check off kar do (temporary)
+PRAGMA foreign_keys = OFF;
+
+-- 2. Sab tables completely khali kar do
+DELETE FROM Grades;
+DELETE FROM Enrollments;
+DELETE FROM Students;
+DELETE FROM Courses;
+DELETE FROM Instructors;
+DELETE FROM Departments;
+
+-- 3. Ab fresh data insert karo (no error aayega)
+INSERT INTO Departments (DepartmentName, Description) VALUES
+('Computer Science', 'Department for CS and IT courses'),
+('Business', 'Department for business studies'),
+('Engineering', 'Department for Engineering programs'),
+('Arts', 'Department for Arts and Humanities');
+
+INSERT INTO Instructors (FullName, Email, DepartmentID, HireDate) VALUES
+('Dr. John Doe', 'john.doe@univ.edu', 1, '2020-01-15'),
+('Prof. Jane Smith', 'jane.smith@univ.edu', 2, '2018-05-20');
+
+INSERT INTO Courses (CourseCode, CourseName, DepartmentID, InstructorID, StartDate, EndDate) VALUES
+('CS101', 'Introduction to Programming', 1, 1, '2025-01-01', '2025-06-01'),
+('BUS201', 'Business Management', 2, 2, '2025-01-01', '2025-06-01');
+
+INSERT INTO Students (FullName, UniversityID, Age, Gender, Email) VALUES
+('Alice Johnson', 'STU001', 20, 'Female', 'alice@univ.edu'),
+('Bob Brown', 'STU002', 22, 'Male', 'bob@univ.edu');
+
+INSERT INTO Enrollments (StudentID, CourseID) VALUES
+(1, 1),
+(2, 2);
+
+INSERT INTO Grades (EnrollmentID, Grade, LetterGrade) VALUES
+(1, 90.00, 'A'),
+(2, 85.50, 'B');
+
+-- 4. Foreign key check wapas on kar do
+PRAGMA foreign_keys = ON;
+
+-- 5. Check kar lo sab theek hai
+SELECT 'Data inserted successfully! Check tables below:' AS Status;
+
+SELECT 'Departments' AS Table_Name, COUNT(*) AS Count FROM Departments UNION ALL
+SELECT 'Instructors' AS Table_Name, COUNT(*) AS Count FROM Instructors UNION ALL
+SELECT 'Courses' AS Table_Name, COUNT(*) AS Count FROM Courses UNION ALL
+SELECT 'Students' AS Table_Name, COUNT(*) AS Count FROM Students UNION ALL
+SELECT 'Enrollments' AS Table_Name, COUNT(*) AS Count FROM Enrollments UNION ALL
+SELECT 'Grades' AS Table_Name, COUNT(*) AS Count FROM Grades;
